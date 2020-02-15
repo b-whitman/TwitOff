@@ -1,42 +1,19 @@
-from flask import Flask, jsonify, request, render_template
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+from flask import Blueprint, jsonify, request, current_app
 
-from twitoff.routes import 
+from twitoff.models import User, Tweet, db
 
-def create_app():
-    app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///twitoff.db"
+my_routes = Blueprint("my_routes", __name__)
 
-    db = SQLAlchemy(app)
-
-    migrate = Migrate(app, db)
-
-    db.init_app
-
-    class User(db.Model):
-        id = db.Column(db.Integer, primary_key=True)
-        name = db.Column(db.String(128))
-
-    class Tweet(db.Model):
-        id = db.Column(db.Integer, primary_key=True)
-        status = db.Column(db.String)
-        user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-
-#
-# ROUTING
-#
-
-@app.route("/")
+@my_routes.route("/")
 def index():
     return render_template("index.html")
 
-@app.route("/about")
+@my_routes.route("/about")
 def about():
     return "About Me"
 
-@app.route("/users")
-@app.route("/users.json")
+@my_routes.route("/users")
+@my_routes.route("/users.json")
 def users():
     users = User.query.all()
     print(type(users))
@@ -50,7 +27,7 @@ def users():
 
     return jsonify(users_response)
 
-@app.route("/users/create", methods=["POST"])
+@my_routes.route("/users/create", methods=["POST"])
 def create_user():
     print("CREATING A NEW USER...")
     print("FORM DATA:", dict(request.form))
@@ -65,7 +42,7 @@ def create_user():
     else:
         return jsonify({"message": "OOPS"})
 
-@app.route("/tweets/create", methods=["POST"])
+@my_routes.route("/tweets/create", methods=["POST"])
 def create_tweet():
     print("CREATING A NEW TWEET...")
     print("FORM DATA:", dict(request.form))
