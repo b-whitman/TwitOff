@@ -16,3 +16,4 @@ class Tweet(db.Model):
     # embedding = db.Column(db.PickleType)
 
     user = db.relationship("User", backref=db.backref("tweets", lazy=True))
+    

@@ -55,3 +55,9 @@ def create_tweet():
         return jsonify({"message": "CREATED OK", "status": string})
     else:
         return jsonify({"message": "oops"})
+
+@my_routes.route("/get_tweets")
+def get_tweets():
+    tweets = []
+    print(tweets)
+    return jsonify({"message": "OK"})

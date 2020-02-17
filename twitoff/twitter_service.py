@@ -10,23 +10,31 @@ TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN", default="OOPS")
 TWITTER_ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET", 
                             default="OOPS")
 
-auth = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
-print(type(auth))
-auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
 
-client = tweepy.API(auth)
-print(type(client))
-print(dir(client))
-print("----------")
 
-public_tweets = client.home_timeline(tweet_mode='extended')
+def twitter_api_client():
+    auth = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
+    print(type(auth))
+    auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
+    client = tweepy.API(auth)
+    print(client)
+    return client
 
-for tweet in public_tweets:
-    print(type(tweet), tweet.full_text)
+if __name__ == "__main__":
 
-print("----------")
+    client = twitter_api_client()
+    # print(type(client))
+    # print(dir(client))
+    # print("----------")
 
-elon_tweets = client.user_timeline("elonmusk", tweet_mode='extended')
+    # public_tweets = client.home_timeline(tweet_mode='extended')
 
-for tweet in elon_tweets:
-    print(type(tweet), tweet.full_text)
+    # for tweet in public_tweets:
+    #     print(type(tweet), tweet.full_text)
+
+    print("----------")
+
+    elon_tweets = client.user_timeline("elonmusk", tweet_mode='extended')
+
+    for tweet in elon_tweets:
+        print(type(tweet), tweet.full_text)
