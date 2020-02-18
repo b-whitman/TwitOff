@@ -13,7 +13,6 @@ class Tweet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    # embedding = db.Column(db.PickleType)
+    embedding = db.Column(db.PickleType)
 
     user = db.relationship("User", backref=db.backref("tweets", lazy=True))
-    
