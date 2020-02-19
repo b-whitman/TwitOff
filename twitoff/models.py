@@ -7,12 +7,14 @@ migrate = Migrate()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(128))
+    screen_name = db.Column(db.String(128))
+    followers_count = db.Column(db.Integer)
+    latest_tweet_id = db.Column(db.BigInteger)
 
 class Tweet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    status = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    full_text = db.Column(db.String(500))
     embedding = db.Column(db.PickleType)
 
     user = db.relationship("User", backref=db.backref("tweets", lazy=True))

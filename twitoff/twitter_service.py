@@ -1,3 +1,4 @@
+"""Accesses twitter API"""
 import os
 from dotenv import load_dotenv
 import tweepy
