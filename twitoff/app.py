@@ -19,7 +19,6 @@ def create_app():
     app.config["TWITTER_API_CLIENT"] = twitter_api_client()
 
 
-
     db.init_app(app)
     migrate.init_app(app, db)
 
