@@ -1,1 +1,1 @@
-web: FLASK_APP=twitoff flask run
+web: gunicorn "twitoff:create_app()"
