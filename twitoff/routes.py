@@ -66,6 +66,8 @@ def show_user(screen_name=None):
             print("Embedding length:", len(embedding))
             db_tweet.embedding = embedding
             db.session.add(db_tweet)
+            print("TWEET ADDED TO DB")
+        print("COMMITTING TWEET TO DB...")
         db.session.commit()
 
         return render_template(
