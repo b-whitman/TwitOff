@@ -48,10 +48,10 @@ def show_user(screen_name=None):
         db.session.commit()
 
         statuses = client.user_timeline(screen_name,
-            tweet_mode="extended", 
-            count=50, 
-            exclude_replies=True, 
-            include_rts=False)
+                                        tweet_mode="extended", 
+                                        count=5, 
+                                        exclude_replies=True, 
+                                        include_rts=False)
         for status in statuses:
             print(status.full_text)
 
@@ -63,7 +63,7 @@ def show_user(screen_name=None):
             embedding = basilica_client.embed_sentence(
                 status.full_text,
                 model="twitter")
-            print(len(embedding))
+            print("Embedding length:", len(embedding))
             db_tweet.embedding = embedding
             db.session.add(db_tweet)
         db.session.commit()
