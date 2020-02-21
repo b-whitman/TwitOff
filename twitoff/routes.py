@@ -49,7 +49,7 @@ def show_user(screen_name=None):
 
         statuses = client.user_timeline(screen_name,
                                         tweet_mode="extended", 
-                                        count=5, 
+                                        count=2, 
                                         exclude_replies=True, 
                                         include_rts=False)
         for status in statuses:
